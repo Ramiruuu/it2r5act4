@@ -8,12 +8,15 @@ class User extends Model
 {
     protected $table = 'users'; 
 
+    protected $primaryKey = 'id';
+
+    public $timestamps = false; 
+    public $incrementing = true; 
+    protected $keyType = 'int';  
+
     protected $fillable = [
         'username', 
-        'password', 'gender'
+        'password', 
+        'gender'
     ];
-
-    public $timestamps = false;
-    protected $primaryKey = 'userid';
 }
-
