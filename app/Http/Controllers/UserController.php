@@ -29,6 +29,16 @@ class UserController extends Controller {
         return $this->successResponse($users);
     }
 
+    public function show($id) {
+        $user = User::find($id);
+
+        if (!$user) {
+            return $this->errorResponse('User not found', Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->successResponse($user);
+    }
+
     public function add(Request $request) {
         $rules = [
             'username' => 'required|max:20',
