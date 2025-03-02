@@ -2,20 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
+use App\Models\User; 
+use App\Traits\ApiResponser; 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Http\Controllers\Controller; // ✅ Add this
+use DB; 
 
-class UserController extends Controller { // ✅ Ensure correct class name
+class UserController extends Controller {
+    use ApiResponser;
+
     private $request;
 
-    public function __construct(Request $request) {
+    public function __construct(Request $request){
         $this->request = $request;
     }
 
-    public function getUsers() {
+    public function getUsers(){
+        // eloquent style
+        // $users = User::all();
+
+        // sql string as parameter
+        $users = DB::connection('mysql')
+            ->select("Select * from tbluser");
+
+        return response()->json($users, 200);
+    }
+
+    public function index()
+    {
         $users = User::all();
-        return response()->json($users, 200); // ✅ Fix response
+
+        return $this->successResponse($users);
     }
 }
