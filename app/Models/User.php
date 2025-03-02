@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    protected $table = 'users';
+    protected $table = 'users'; // ✅ Correct placement
 
     // Columns sa table
     protected $fillable = [
