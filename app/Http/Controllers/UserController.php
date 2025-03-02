@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User; 
 use App\Traits\ApiResponser; 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response; // ✅ Import Response class
-use Illuminate\Support\Facades\DB; // ✅ Import DB Facade
+use Illuminate\Http\Response; 
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller {
     use ApiResponser;
@@ -18,12 +18,7 @@ class UserController extends Controller {
     }
 
     public function getUsers(){
-        // eloquent style
-        // $users = User::all();
-
-        // sql string as parameter
-        $users = DB::connection('mysql')
-            ->select("SELECT * FROM users");
+        $users = DB::connection('mysql')->select("SELECT * FROM users");
 
         return response()->json($users, 200);
     }
@@ -31,7 +26,6 @@ class UserController extends Controller {
     public function index()
     {
         $users = User::all();
-
         return $this->successResponse($users);
     }
 
@@ -42,7 +36,12 @@ class UserController extends Controller {
             'gender' => 'required|in:Male,Female',
         ];
     
-        $request->validate($rules); // ✅ Correct way to validate
+        // ✅ Lumen-compatible validation
+        $validator = app('validator')->make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     
         $user = User::create($request->all());
 
