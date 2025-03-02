@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    protected $table = 'users'; // ✅ Correct placement
+    protected $table = 'users'; // 🔥 Make sure this matches your actual table name!
 
-    // Columns sa table
     protected $fillable = [
         'username', 
         'password'
     ];
 }
+
