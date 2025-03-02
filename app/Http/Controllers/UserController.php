@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User; 
 use App\Traits\ApiResponser; 
 use Illuminate\Http\Request;
-use DB; 
+use Illuminate\Http\Response; // ✅ Import Response class
+use Illuminate\Support\Facades\DB; // ✅ Import DB Facade
 
 class UserController extends Controller {
     use ApiResponser;
@@ -22,7 +23,7 @@ class UserController extends Controller {
 
         // sql string as parameter
         $users = DB::connection('mysql')
-            ->select("Select * from users");
+            ->select("SELECT * FROM users");
 
         return response()->json($users, 200);
     }
@@ -41,9 +42,10 @@ class UserController extends Controller {
             'gender' => 'required|in:Male,Female',
         ];
     
-        $this->validate($request, $rules);
+        $request->validate($rules); // ✅ Correct way to validate
     
         $user = User::create($request->all());
+
         return $this->successResponse($user, Response::HTTP_CREATED);
     }
 }
