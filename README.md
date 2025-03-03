@@ -23,3 +23,6 @@ This project is a **microservice** built with **Lumen**, designed for fast and e
 ### 1. Clone the repository
 ```sh
 git clone https://github.com/Ramiruuu/it2r5act4
+
+```sh
+cd <working folder>
