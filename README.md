@@ -24,5 +24,4 @@ This project is a **microservice** built with **Lumen**, designed for fast and e
 ```sh
 git clone https://github.com/Ramiruuu/it2r5act4
 
-```sh
 cd <working folder>
